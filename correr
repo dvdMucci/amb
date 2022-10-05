@@ -1,0 +1,13 @@
+#!/bin/bash
+if ! pidof openvpn >/dev/null; then
+  /usr/sbin/openvpn --config /etc/openvpn/cemtmaster.conf
+else
+  if ping -c 1 some_ip_here &> /dev/null; then
+    echo "Tunel ok"
+  else
+    pidnum = pidof openvpn
+    kill $pidnum
+    /usr/sbin/openvpn --config /etc/openvpn/cemtmaster.conf
+  fi
+fi
+
